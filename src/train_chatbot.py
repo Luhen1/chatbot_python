@@ -1,3 +1,5 @@
+#importing files and necessary libraries
+
 import numpy as np 
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Dropout
@@ -10,3 +12,22 @@ import json
 import pickle
 intents_file = open(intents.json).read()
 intents = json.loads(intents_file)
+
+#tokenization method to preprocess data 
+
+words = []
+classes = []
+documents = []
+ignore_letters = ['!','?',',','.']
+for intent in intents['intents']:
+    for pattern in intent['patterns']:
+        # tokenize each word
+        word = nltk.word_tokenize(pattern)
+        words.extend(word)
+        # add documents in the corpus
+        documents.append((word, intent['tag']))
+        # add to our classes list
+        if intent['tag'] not in classes:
+            classes.append(intent['tag'])
+print(documents)
+

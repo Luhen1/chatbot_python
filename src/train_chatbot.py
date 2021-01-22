@@ -31,3 +31,18 @@ for intent in intents['intents']:
             classes.append(intent['tag'])
 print(documents)
 
+#lemmatization
+
+#lemmaztize and lower each word and remove duplicates
+words = [lemmatizer.lemmatize(w.lower()) for w in words if w not in ignore_letters]
+words = sorted(list(set(words)))
+#sort classes
+classes = sorted(list(set(classes)))
+#documents = combination between partterns and intents
+print(len(classes), "classes", classes)
+# words = all words, vocabulary
+print (len(words), "unique lemmatized words", words)
+# save python object in a file. we use pickle dump
+pickle.dump(words, open('words.pkl', 'wb'))
+pickle.dump(classes, open('classes.pkl', 'wb'))
+
